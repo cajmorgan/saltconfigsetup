@@ -5,7 +5,7 @@
 #include <time.h>
 
 #define SCRIPTS "./fall21-salt-stars/COPYTOSCRIPTS.txt"
-#define SCRIPTSCONTENT "\"lint\": \"eslint '**/*.js’ --fix\",\n\"lint-watch\": \"nodemon --exec 'npm run lint --silent'\"\n\"test\": \"mocha --exit './{,!(node_modules)/**}/*.spec.js'\"\n\"start\": \"lint-watch\""
+#define SCRIPTSCONTENT "\"lint\": \"eslint '**/*.js' --fix\",\n\"lint-watch\": \"nodemon --exec 'npm run lint --silent'\"\n\"test\": \"mocha --exit './{,!(node_modules)/**}/*.spec.js'\"\n\"start\": \"lint-watch\""
 
 void timerFunc(int seconds);
 void readAndWriteFile(char *filename, char *content, int length);
@@ -55,10 +55,12 @@ void linterSetup() {
   char eslintignoreContent[] = "/server/public/javascript/*\nwdio.conf.js\nwebpack.config.js\n/server/config\n**/*.spec.js\n**/*.e2e.js";
   char eslintrcName[] = "./fall21-salt-stars/.eslintrc.json";
   char eslintrcNameContent[] = "{\n\"extends\": \"salt\",\n\"rules\": {\n// Overrides here\n}\n}";
-
+  
 
   readAndWriteFile(eslintIgnoreName, eslintignoreContent, sizeof(eslintignoreContent));
   readAndWriteFile(eslintrcName, eslintrcNameContent, sizeof(eslintrcNameContent));
+
+  system("cd fall21-salt-stars/; npm install eslint-config-salt --save-dev");
 
 }
 
